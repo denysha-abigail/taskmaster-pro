@@ -45,6 +45,7 @@ var saveTasks = function () {
 };
 
 // delegates clicks to the parent <ul> with class list-group
+// the value of 'this' always refers to the entire jQuery element in an .on() callback function
 $(".list-group").on("click", "p", function () {
   var text = $(this)
     // will get the inner text content of the current element
