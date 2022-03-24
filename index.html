@@ -7,6 +7,11 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css">
+  <!-- always add fonts BEFORE css -->
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Staatliches&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" />
   <link rel="stylesheet" href="./assets/css/style.css" />
   <title>Taskmaster Pro</title>
 </head>
@@ -15,12 +20,21 @@
 
   <div class="row min-vh-100 no-gutters">
     <header class="col-12 col-lg-3 bg-dark text-light sticky-top d-flex flex-column p-4 p-lg-3">
-      <h1 class="text-center">Taskmaster Pro Edition</h1>
-      <button id="create-task" class="btn btn-block btn-success" data-toggle="modal" data-target="#task-form-modal">Add
+      <!-- added checkmark icon span here for when user has smaller screen, the icon can still be seen next to the <h1> rather than towards the left at the bottom -->
+      <h1 class="text-center"><span class="oi oi-task d-inline d-lg-none"></span>Taskmaster Pro Edition</h1>
+      <!-- added plus icon span here and a class of mr-2 for margin-right -->
+      <button id="create-task" class="btn btn-block btn-success" data-toggle="modal"
+        data-target="#task-form-modal"><span class="oi oi-plus mr-2"></span>Add
         Task</button>
-      <button id="remove-tasks" class="btn btn-block btn-danger">Delete All Tasks</button>
+      <!-- added trash icon span here and a class of mr-2 for margin-right -->
+      <button id="remove-tasks" class="btn btn-block btn-danger"><span class="oi oi-trash mr-2"></span>Delete All
+        Tasks</button>
+      <!-- added checkmark icon span here; class of d-none d-lg-block -> checkmark icon will not display when screen is larger -->
+      <!-- if we left both the icon and the paragraph to have a bootstrap class of mt-auto (which would set the margin-top spacing to auto), it would create a conflict because the <header> is set to a flexbox column -->
+      <!-- to fix it, remove the mt-auto class from the <p> element but leave it on the icon's <span> element -->
+      <span class="oi oi-task display-1 text-center mb-2 d-none d-lg-block mt-auto"></span>
       <!-- mt-auto puts all of the unused space in the <header> element on top of the <p> element instead of keeping it below. This only works because the <header> is set up as a flexbox column -->
-      <p class="mt-auto d-none d-lg-block">Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi voluptas
+      <p class="d-none d-lg-block">Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi voluptas
         architecto ipsa
         excepturi aut non
         laudantium sequi fugit officiis optio deleniti asperiores rem eius laborum maxime blanditiis culpa, quis iste?
@@ -91,7 +105,7 @@
       </div>
       <!-- mt-auto will push the trash element all the way to the bottom of the <main> element -->
       <div id="trash" class="mt-auto">
-        <div class="w-100 bg-danger p-3 text-center text-light display-4">
+        <div class="w-100 bg-danger p-3 text-center text-light display-4"><span class="oi oi-trash"></span>
           Drop Here to Remove.
         </div>
       </div>

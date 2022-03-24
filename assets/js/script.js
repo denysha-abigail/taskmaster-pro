@@ -32,7 +32,7 @@ var auditTask = function (taskEl) {
   // once the date information is stored into the date variable, we must pass that value into the moment() function to turn it into a Moment object
   // first, we use the date variable we created from taskEl to make a new Moment object, configured for the user's local time using moment(date, "L")
   // because the date variable does not specify a time of day (i.e. "11/23/2019"), the Moment object will default to 12:00am
-  // because work usually doesn't end end at 12:00am, we convert it to 5:00pm of that day instead, using the .set("hour", 17) method (value 17 in 24-hr time, or 5:00pm)
+  // because work usually doesn't end at 12:00am, we convert it to 5:00pm of that day instead, using the .set("hour", 17) method (value 17 in 24-hr time, or 5:00pm)
   // convert to moment object at 5:00pm
   var time = moment(date, "L").set("hour", 17);
   
@@ -48,6 +48,7 @@ var auditTask = function (taskEl) {
     // performs from left to right --> when we use moment() to get right now and use .diff() afterwards to get the difference of right now to a day in the future, we'll get a negative number back (we have to check if the difference is >= -2)
     // testing for a number less than +2 not a number greater than -2
     // the abs() method ensures we're getting the absolute value of that number
+    // .diff() method gets the difference between the first date and the date provided in the ()
   } else if (Math.abs(moment().diff(time, "days")) <= 2) {
     $(taskEl).addClass("list-group-item-warning");
   }
@@ -211,17 +212,25 @@ $(".card .list-group").sortable({
   helper: "clone",
   // activate and deactivate events trigger once for all connected lists as soon as dragging starts and stops
   activate: function (event) {
-    console.log("activate", this);
+    // select this and add the class of dropover to it
+    // all task boxes receive the dropover class as they turn grey
+    $(this).addClass("dropover");
   },
   deactivate: function (event) {
-    console.log("deactivate", this);
+    // select this and remove the class of dropover from it
+    // when dragging stops, all classes are removed!
+    $(this).removeClass("dropover");
   },
   // over and out events trigger when a dragged item enters or leaves a connected list
   over: function (event) {
-    console.log("over", event.target);
+    // select event.target and add the class of dropover-active to it
+    // task boxes turn black when an element is dragged over it
+    $(event.target).addClass("dropover-active");
   },
   out: function (event) {
-    console.log("out", event.target);
+    // select event.target and remove the class of dropover-active from it
+    // task boxes turn back to grey when an element is not over it
+    $(event.target).removeClass("dropover-active");
   },
   // update even triggers when the contents of a list have changed (i.e. the items were re-ordered, an item was removed, or an item was added)
   update: function (event) {
@@ -334,4 +343,25 @@ $("#remove-tasks").on("click", function () {
 // load tasks for the first time
 loadTasks();
 
+// setInterval will run on a timed schedule based on what is entered in the second argument
+// asynchronous --> they run in the background until their time is up and then execute the callback function
+// here, the jQuery selector passes each element it finds using the selector into the callback function, and that element is expressed in the el argument of the function; auditTask() then passes the element to its routines using the el argument
+// we loop over every task on the page with a class of list-group-item and execute the auditTask() function to check the due date of each one 
+setInterval(function() {
+  $(".card .list-group-item").each(function(index, el) {
+    auditTask(el);
+  });
+  // set setInterval() to run every 30mins which is 1800000 milliseconds
+  // (1000 * 60) * 30); --> 1,000 milliseconds * 60 to convert it to 1 minute. Then multiply by 30 to get 30mins
+}, 1800000);
 
+
+
+// setTimeout() function was given two arguments: a callback function and a number; the callback function is the block of code we want to have executed after an amount of time has passed; that amount of time comes from the second argument, which is the number of milliseconds we want to wait for
+// in the setTimeout() function, we want the browser to wait 5 seconds (5,000 milliseconds) before executing a function that puts an alert dialog on the screen --> the moment that function is done running, it's done forever and won't execute again
+// setTimeout will only run once
+// asynchronous --> they run in the background until their time is up and then execute the callback function
+
+              // setTimeout(function() {
+              //   alert("This message happens after 5 seconds!");
+              // }, 5000);

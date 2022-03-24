@@ -1,3 +1,27 @@
 ul.list-group {
   min-height: 130px;
 }
+
+body {
+  font-family: "Open Sans", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Staatliches", sans-serif;
+}
+
+/* will be implemented in the .sortable() method's settings to apply the class to all task lists on drag start */
+.dropover {
+  /* last number in rgba() represents the alpha transparency value; 1 = fully visible while 0 = invisible; any decimal point in between will increase or decrease that color's visibility and let the color behind it show through it*/
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* will be implemented in the .sortable() method's settings to apply the class to all task that is directly dragged over a specific list */
+.dropover-active {
+  background-color: rgba(0, 0, 0, 0.9);
+}
