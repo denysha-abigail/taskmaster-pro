@@ -23,11 +23,11 @@
       <!-- added checkmark icon span here for when user has smaller screen, the icon can still be seen next to the <h1> rather than towards the left at the bottom -->
       <h1 class="text-center"><span class="oi oi-task d-inline d-lg-none"></span>Taskmaster Pro Edition</h1>
       <!-- added plus icon span here and a class of mr-2 for margin-right -->
-      <button id="create-task" class="btn btn-block btn-success" data-toggle="modal"
+      <button id="create-task" class="btn btn-block btn-add" data-toggle="modal"
         data-target="#task-form-modal"><span class="oi oi-plus mr-2"></span>Add
         Task</button>
       <!-- added trash icon span here and a class of mr-2 for margin-right -->
-      <button id="remove-tasks" class="btn btn-block btn-danger"><span class="oi oi-trash mr-2"></span>Delete All
+      <button id="remove-tasks" class="btn btn-block btn-delete"><span class="oi oi-trash mr-2"></span>Delete All
         Tasks</button>
       <!-- added checkmark icon span here; class of d-none d-lg-block -> checkmark icon will not display when screen is larger -->
       <!-- if we left both the icon and the paragraph to have a bootstrap class of mt-auto (which would set the margin-top spacing to auto), it would create a conflict because the <header> is set to a flexbox column -->
@@ -104,8 +104,9 @@
         <!-- done end -->
       </div>
       <!-- mt-auto will push the trash element all the way to the bottom of the <main> element -->
-      <div id="trash" class="mt-auto">
-        <div class="w-100 bg-danger p-3 text-center text-light display-4"><span class="oi oi-trash"></span>
+      <!-- overflow-hidden class so that there is no overflowing space anymore -->
+      <div id="trash" class="mt-auto overflow-hidden">
+        <div class="w-100 p-3 text-center bottom-trash"><span class="oi oi-trash mx-auto mb-4"></span>
           Drop Here to Remove.
         </div>
       </div>
@@ -136,8 +137,8 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save Task</button>
+          <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-save">Save Task</button>
         </div>
       </div>
     </div>

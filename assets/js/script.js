@@ -5,7 +5,7 @@ var createTask = function (taskText, taskDate, taskList) {
   var taskLi = $("<li>").addClass("list-group-item");
 
   var taskSpan = $("<span>")
-    .addClass("badge badge-primary badge-pill")
+    .addClass("badge badge-save badge-pill")
     .text(taskDate);
   var taskP = $("<p>")
     .addClass("m-1")
@@ -192,7 +192,7 @@ $(".list-group").on("change", "input[type='text']", function () {
 
   // recreate span element with bootstrap classes
   var taskSpan = $("<span>")
-    .addClass("badge badge-primary badge-pill")
+    .addClass("badge badge-save badge-pill")
     .text(date);
 
   // replace input with span element
@@ -215,11 +215,15 @@ $(".card .list-group").sortable({
     // select this and add the class of dropover to it
     // all task boxes receive the dropover class as they turn grey
     $(this).addClass("dropover");
+    // when you pick up a task while sorting, the light red trash appears
+    $(".bottom-trash").addClass("bottom-trash-drag");
   },
   deactivate: function (event) {
     // select this and remove the class of dropover from it
     // when dragging stops, all classes are removed!
     $(this).removeClass("dropover");
+    // when you let go of a task while sorting, the light red trash goes away
+    $(".bottom-trash").removeClass("bottom-trash-drag");
   },
   // over and out events trigger when a dragged item enters or leaves a connected list
   over: function (event) {
@@ -277,13 +281,16 @@ $("#trash").droppable({
   drop: function (event, ui) {
     // removing a task from any of the lists triggers a sortable update(), meaning the sortable calls saveTasks() for us; jQuery's remove() method works just like a regular JavaScript remove()
     ui.draggable.remove();
-    console.log("drop");
+    // when you drop task into trash the dark red color goes away and shows up as faded
+    $(".bottom-trash").removeClass("bottom-trash-active");
   },
   over: function (event, ui) {
-    console.log("over");
+    // when you're over the trash with a task the dark red color pops out
+    $(".bottom-trash").addClass("bottom-trash-active");
   },
   out: function (event, ui) {
-    console.log("out");
+    // when you're out of the trash with a task the dark red color goes away and shows up as faded
+    $(".bottom-trash").removeClass("bottom-trash-active");
   }
 })
 
@@ -306,7 +313,7 @@ $("#task-form-modal").on("shown.bs.modal", function () {
 });
 
 // save button in modal was clicked
-$("#task-form-modal .btn-primary").click(function () {
+$("#task-form-modal .btn-save").click(function () {
   // get form values
   var taskText = $("#modalTaskDescription").val();
   var taskDate = $("#modalDueDate").val();
