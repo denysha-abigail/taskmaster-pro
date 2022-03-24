@@ -1,3 +1,73 @@
 ul.list-group {
   min-height: 130px;
 }
+
+body {
+  font-family: "Open Sans", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Staatliches", sans-serif;
+}
+
+/* will be implemented in the .sortable() method's settings to apply the class to all task lists on drag start */
+.dropover {
+  /* last number in rgba() represents the alpha transparency value; 1 = fully visible while 0 = invisible; any decimal point in between will increase or decrease that color's visibility and let the color behind it show through it*/
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* will be implemented in the .sortable() method's settings to apply the class to all task that is directly dragged over a specific list */
+.dropover-active {
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+/* will give the dropzone all of its base styles and move it down 150px using the translateY() CSS function */
+.bottom-trash {
+  opacity: 0;
+  color: #f1f1f1;
+  font-size: 2.3rem;
+  font-family: "Staatliches", sans-serif;
+  /* translates the Y position of the <div> down by 150px from its origin */
+  transform: translateY(150px);
+  transition: all .5s ease-in-out;
+  background-color: rgba(234, 0, 39, 0.7);
+}
+/* will be added to the trash dropzone element when a task is dragged, which will move the element back into view */
+.bottom-trash-drag {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* will be applied when a task item is dragged over the trash dropzone */
+.bottom-trash-active {
+  background-color: rgba(234, 0, 39, 1);
+}
+
+.btn-add, .btn-save {
+  /* set the background to have a gradient; if the browser doesn't support it, the color will fall back to whatever background-color it is using */
+  background-color: #FA8BFF;
+  background-image: linear-gradient(45deg, #FA8BFF 0%, #2BD2FF 52%, #2BFF88 90%);
+  /* transition property provides a nice sliding effect; if no transition, the effect would be immediate and jarring */
+  transition: all .5s ease-out;
+  /* background-size makes the gradient a lot taller (100px) than the actual button height (38px); that's why we don't see the purple-ish color (#FA8BFF) from the gradient on load */
+  background-size: 1px 100px;
+  background-position: 0 -10px;
+}
+
+.btn-close, .btn-delete {
+  background-color: #EA0028;
+  background-image: linear-gradient(180deg, #FF9A8B 0%, #EA0028 100%);
+  transition: all .5s ease-out;
+  background-size: 1px 100px;
+  background-position: 0 -10px;
+}
+
+.btn-add:hover, .btn-save:hover, .btn-close:hover, .btn-delete:hover {
+  /* set the background-position to move from -10px to -50px on hover, effectively moving the colored background up and down */
+  background-position: 1px -50px;
+}
